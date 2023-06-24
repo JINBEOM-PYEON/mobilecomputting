@@ -1,50 +1,13 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button } from 'react-native';
+import React from 'react';
+import { View, Text } from 'react-native';
+import { AppProvider } from './AppContext';
 
-const MyForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
-  const handleNameChange = (text) => {
-    setName(text);
-  };
-
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-
-  const handleSubmit = () => {
-    fetch('http://34.64.185.101/submit.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`,
-  })
-    .then((response) => response.text())
-    .then((responseText) => {
-      console.log(responseText);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  };
-
+const App = () => {
   return (
-    <View>
-      <TextInput
-        placeholder="Name"
-        value={name}
-        onChangeText={handleNameChange}
-      />
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={handleEmailChange}
-      />
-      <Button title="Submit" onPress={handleSubmit} />
-    </View>
+    <AppProvider>
+      <Counter />
+    </AppProvider>
   );
 };
 
-export default MyForm;
+export default App;
